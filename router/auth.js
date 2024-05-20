@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cookieValidate = require('../middleware/token.middleware')
 
-const router = express.Router();
+const router = express.Router(); 
 
 // variables
 const JWT_SECRET = process.env.JWT_SECRET
@@ -62,7 +62,7 @@ router.post("/login", cookieValidate, async (req, res) => {
         username and password to authenticate the user 
     */
 
-    const hashPassword = "$2a$05$edjLRGcfhXkW3HEdOTxEiulwEgvtI7md4xRFkWe8QVYqC/ngrI/my"; // get from db instead
+    const hashPassword = "$2a$05$z9Zh2aOukW89X4MsTd1yJ.BoC1plW5tK1P.FZw.Yn03QhVtk0FE/u"; // get from db instead
     const pwdMatched = bcrypt.compareSync(password, hashPassword);
 
     if (!pwdMatched) {

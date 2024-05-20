@@ -1,0 +1,1 @@
+## PORT and JWT_SECRET is from .env file which is not included in this repo
