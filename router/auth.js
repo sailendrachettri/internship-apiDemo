@@ -1,9 +1,10 @@
 const express = require('express')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const cookieValidate = require('../middleware/token.middleware')
+const cookieValidate = require('../middleware/token.middleware');
+const renewToken = require('../middleware/renewtoken.middleware');
 
-const router = express.Router(); 
+const router = express.Router();
 
 // variables
 const JWT_SECRET = process.env.JWT_SECRET
@@ -47,7 +48,7 @@ router.post("/register", (req, res) => {
 
 // ROUTE 2: Login a user
 router.post("/login", cookieValidate, async (req, res) => {
-    const { username, password } = req.body;
+    const {username, password } = req.body;
 
     /*
     TODO:
@@ -69,7 +70,15 @@ router.post("/login", cookieValidate, async (req, res) => {
         return res.status(400).json({ success: true, message: "Invalid credentials" });
     }
 
-    res.status(200).json({ success: true, message: "user logged in succesful using credentials" });
+    // if the user is authentic then regenerate the token for user
+    const data = {
+        username
+    };
+
+    const jwt_token = jwt.sign(data, JWT_SECRET, { expiresIn: "40s" }); // eg: 1d 10m 43s
+
+    res.cookie('jtw_token', jwt_token);
+    res.status(200).json({ success: true, message: "user logged in succesful using credentials and then token is regenerated", token: jwt_token });
 })
 
 module.exports = router
