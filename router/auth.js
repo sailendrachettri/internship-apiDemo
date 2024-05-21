@@ -2,7 +2,6 @@ const express = require('express')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cookieValidate = require('../middleware/token.middleware');
-const renewToken = require('../middleware/renewtoken.middleware');
 
 const router = express.Router();
 
@@ -35,8 +34,7 @@ router.post("/register", (req, res) => {
     // generate token
     // payload
     const data = {
-        username,
-        email
+        username
     }
     const jwt_token = jwt.sign(data, JWT_SECRET, { expiresIn: "40s" }); // eg: 1d 10m 43s
 
