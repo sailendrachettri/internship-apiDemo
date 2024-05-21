@@ -13,7 +13,8 @@ const cookieValidate = (req, res, next) => {
         }
 
     } catch (error) {
-        console.log("Token is expired");
+        console.log('token is expired');
+        res.clearCookie('jwt_token');
     }
 
     next();

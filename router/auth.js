@@ -75,7 +75,7 @@ router.post("/login", cookieValidate, async (req, res) => {
 
     const jwt_token = jwt.sign(data, JWT_SECRET, { expiresIn: "40s" }); // eg: 1d 10m 43s
 
-    res.cookie('jtw_token', jwt_token);
+    res.cookie('jwt_token', jwt_token);
     res.status(200).json({ success: true, message: "user logged in succesful using credentials and then token is regenerated", token: jwt_token });
 })
 
